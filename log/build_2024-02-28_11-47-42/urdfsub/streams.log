@@ -1,0 +1,28 @@
+[0.334s] Invoking command in '/root/dev_ws3/src/urdfsub/build/urdfsub': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --build /root/dev_ws3/src/urdfsub/build/urdfsub -- -j12 -l12
+[0.372s] Invoked command in '/root/dev_ws3/src/urdfsub/build/urdfsub' returned '0': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --build /root/dev_ws3/src/urdfsub/build/urdfsub -- -j12 -l12
+[0.402s] Invoking command in '/root/dev_ws3/src/urdfsub/build/urdfsub': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --install /root/dev_ws3/src/urdfsub/build/urdfsub
+[0.409s] -- Install configuration: ""
+[0.410s] -- Execute custom install script
+[0.411s] -- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/description/RoboSubInclude.xacro
+[0.411s] -- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/description/RoboSubURDF.urdf.xacro
+[0.411s] -- Symlinking: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/description/example_gazebo.xacro
+[0.428s] -- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/launch/__pycache__/rsp.launch.cpython-38.pyc
+[0.428s] -- Symlinking: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/launch/__pycache__/rsp_sim.launch.cpython-38.pyc
+[0.444s] -- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/launch/rsp.launch.py
+[0.444s] -- Symlinking: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/launch/rsp_sim.launch.py
+[0.460s] -- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/ament_index/resource_index/package_run_dependencies/urdfsub
+[0.461s] -- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/ament_index/resource_index/parent_prefix_path/urdfsub
+[0.461s] -- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/environment/ament_prefix_path.sh
+[0.461s] -- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/environment/ament_prefix_path.dsv
+[0.462s] -- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/environment/path.sh
+[0.462s] -- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/environment/path.dsv
+[0.462s] -- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/local_setup.bash
+[0.462s] -- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/local_setup.sh
+[0.463s] -- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/local_setup.zsh
+[0.463s] -- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/local_setup.dsv
+[0.463s] -- Symlinking: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/package.dsv
+[0.480s] -- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/ament_index/resource_index/packages/urdfsub
+[0.481s] -- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/cmake/urdfsubConfig.cmake
+[0.482s] -- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/cmake/urdfsubConfig-version.cmake
+[0.482s] -- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/package.xml
+[0.487s] Invoked command in '/root/dev_ws3/src/urdfsub/build/urdfsub' returned '0': CMAKE_PREFIX_PATH=/opt/ros/foxy /usr/bin/cmake --install /root/dev_ws3/src/urdfsub/build/urdfsub

@@ -1,0 +1,588 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="robot">
+
+    <!-- This is an example of a URDF. -->
+    <!-- As we move through the file, new things to note will be pointed out. -->
+    <!-- It's not meant an example of GOOD design, but an example of some of the various features of URDF/xacro. -->
+
+
+
+    <!-- This will include all the contents of example_include.xacro first. Go check it out! -->
+    <xacro:include filename="RoboSubInclude.xacro" />
+
+
+
+    <!-- This first link called "world" is empty -->
+    <link name="world"></link>
+
+
+    <!-- A simple fixed joint from our empty world link, to our base. -->
+    <!-- The base origin is offset from the world origin. -->
+    <xacro:property name="sub_base" value="sub_link" />
+    <joint name="sub_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <parent link="world"/>
+        <child link="${sub_base}"/>        
+    </joint>
+
+
+    <!-- base_link is a large rectangular plate. Some things to note: -->
+    <!-- - We set the visual origin Z to half the box height, so that the link origin sits at the bottom of the box -->
+    <!-- - We set the collision to be identical to the visual -->
+    <!-- - We specified the colour manually (but still need to enter a name) -->
+    <!-- - We specified all the inertial parameters manually -->
+    <!-- dimensions in m and kg -->
+    <xacro:property name="sub_xorg" value="0" />
+    <xacro:property name="sub_yorg" value="0" />
+    <xacro:property name="sub_zorg" value="1" />
+
+    <xacro:property name="sub_rorg" value="0" />
+    <xacro:property name="sub_porg" value="0" />
+    <xacro:property name="sub_yaworg" value="0" />
+
+    <xacro:property name="subx" value="2" />
+    <xacro:property name="suby" value="0.5" />
+    <xacro:property name="subz" value="0.5" />
+    <xacro:property name="submass" value="12" />
+    <!-- ${subx} ${suby} ${subz} | mass="${submass}" x="${subx}" y="${suby}" z="${subz}" -->
+    <!-- the sub base is just a rectangular prism that represents the main body of the sub-->
+    <link name="${sub_base}">
+        <visual>
+            <origin xyz="${sub_xorg} ${sub_yorg} ${sub_zorg}" rpy="${sub_rorg} ${sub_porg} ${sub_yaworg}"/>
+            <geometry>
+                <box size="${subx} ${suby} ${subz}" />
+            </geometry>
+            <material name="blue" />
+        </visual>
+        <collision>
+            <origin xyz="${sub_xorg} ${sub_yorg} ${sub_zorg}" rpy="${sub_rorg} ${sub_porg} ${sub_yaworg}"/>
+            <geometry>
+                <box size="${subx} ${suby} ${subz}" />
+            </geometry>
+        </collision>
+         <xacro:inertial_box mass="${submass}" x="${subx}" y="${suby}" z="${subz}">
+            <origin xyz="${sub_xorg} ${sub_yorg} ${sub_zorg}" rpy="${sub_rorg} ${sub_porg} ${sub_yaworg}"/>
+        </xacro:inertial_box>
+    </link>
+    
+    <!-- the next 8 joints/ links are going to represent the motors on the sub, they will be very similar-->
+    <!-- need degrees to rad conversion-->
+    <xacro:property name="d2r" value="${3.14159 / 180}" />
+    <!-- naming convention:-->
+    <!-- flm_xorg is front left motor x origin | xyz are x y and z | rpy are roll pitch and yaw-->
+    
+    <!-- front left motor -->
+    <xacro:property name="flm_xsize" value="0.2" />
+    <xacro:property name="flm_ysize" value="0.2" />
+    <xacro:property name="flm_zsize" value="0.2" />
+
+    <xacro:property name="flm_xorg" value="${subx / 2}" />
+    <xacro:property name="flm_yorg" value="${(suby / 2 + 0.14)}" />
+    <xacro:property name="flm_zorg" value="0" />
+
+    <xacro:property name="flm_rorg" value="0" />
+    <xacro:property name="flm_porg" value="0" />
+    <xacro:property name="flm_yaworg" value="${-(45 * d2r)}" />
+
+    <xacro:property name="flm_mass" value="1" />
+
+    <joint name="front_left_motor_joint" type="fixed">
+        <origin xyz="${sub_xorg} ${sub_yorg} ${sub_zorg}" rpy="${sub_rorg} ${sub_porg} ${sub_yaworg}"/>
+        <parent link="${sub_base}"/>
+        <child link="front_left_motor_link"/>        
+    </joint>
+
+
+
+    <link name="front_left_motor_link">
+        <visual>
+            <origin xyz="${flm_xorg} ${flm_yorg} ${flm_zorg}" rpy="${flm_rorg} ${flm_porg} ${flm_yaworg}"/>
+            <geometry>
+                <box size="${flm_xsize} ${flm_ysize} ${flm_zsize}" />
+            </geometry>
+            <material name="green" />
+        </visual>
+        <visual>
+            <origin xyz="${flm_xorg} ${flm_yorg} ${flm_zorg}" rpy="${flm_rorg} ${flm_porg} ${flm_yaworg}"/>
+            <geometry>
+                <box size="0.3 0.1 0.1" />
+            </geometry>
+            <material name="green" />
+        </visual>
+        <collision>
+            <origin xyz="${flm_xorg} ${flm_yorg} ${flm_zorg}" rpy="${flm_rorg} ${flm_porg} ${flm_yaworg}"/>
+            <geometry>
+                <box size="${flm_xsize} ${flm_ysize} ${flm_zsize}" />
+            </geometry>
+        </collision>
+         <xacro:inertial_box mass="${flm_mass}" x="${flm_xsize}" y="${flm_ysize}" z="${flm_zsize}">
+            <origin xyz="${flm_xorg} ${flm_yorg} ${flm_zorg}" rpy="${flm_rorg} ${flm_porg} ${flm_yaworg}"/>
+        </xacro:inertial_box>
+    </link>
+
+    <!-- front right motor -->
+    <xacro:property name="frm_xsize" value="0.2" />
+    <xacro:property name="frm_ysize" value="0.2" />
+    <xacro:property name="frm_zsize" value="0.2" />
+
+    <xacro:property name="frm_xorg" value="${subx / 2}" />
+    <xacro:property name="frm_yorg" value="${-(suby / 2 + 0.14)}" />
+    <xacro:property name="frm_zorg" value="0" />
+
+    <xacro:property name="frm_rorg" value="0" />
+    <xacro:property name="frm_porg" value="0" />
+    <xacro:property name="frm_yaworg" value="${(45 * d2r)}" />
+
+    <xacro:property name="frm_mass" value="1" />
+
+    <joint name="front_right_motor_joint" type="fixed">
+        <origin xyz="${sub_xorg} ${sub_yorg} ${sub_zorg}" rpy="${sub_rorg} ${sub_porg} ${sub_yaworg}"/>
+        <parent link="${sub_base}"/>
+        <child link="front_right_motor_link"/>        
+    </joint>
+
+
+
+    <link name="front_right_motor_link">
+        <visual>
+            <origin xyz="${frm_xorg} ${frm_yorg} ${frm_zorg}" rpy="${frm_rorg} ${frm_porg} ${frm_yaworg}"/>
+            <geometry>
+                <box size="${frm_xsize} ${frm_ysize} ${frm_zsize}" />
+            </geometry>
+            <material name="green" />
+        </visual>
+        <visual>
+            <origin xyz="${frm_xorg} ${frm_yorg} ${frm_zorg}" rpy="${frm_rorg} ${frm_porg} ${frm_yaworg}"/>
+            <geometry>
+                <box size="0.3 0.1 0.1" />
+            </geometry>
+            <material name="green" />
+        </visual>
+        <collision>
+            <origin xyz="${frm_xorg} ${frm_yorg} ${frm_zorg}" rpy="${frm_rorg} ${frm_porg} ${frm_yaworg}"/>
+            <geometry>
+                <box size="${frm_xsize} ${frm_ysize} ${frm_zsize}" />
+            </geometry>
+        </collision>
+         <xacro:inertial_box mass="${frm_mass}" x="${frm_xsize}" y="${frm_ysize}" z="${frm_zsize}">
+            <origin xyz="${frm_xorg} ${frm_yorg} ${frm_zorg}" rpy="${frm_rorg} ${frm_porg} ${frm_yaworg}"/>
+        </xacro:inertial_box>
+    </link>
+
+    <!-- back right motor -->
+    <xacro:property name="brm_xsize" value="0.2" />
+    <xacro:property name="brm_ysize" value="0.2" />
+    <xacro:property name="brm_zsize" value="0.2" />
+
+    <xacro:property name="brm_xorg" value="${-(subx / 2)}" />
+    <xacro:property name="brm_yorg" value="${-(suby / 2 + 0.14)}" />
+    <xacro:property name="brm_zorg" value="0" />
+
+    <xacro:property name="brm_rorg" value="0" />
+    <xacro:property name="brm_porg" value="0" />
+    <xacro:property name="brm_yaworg" value="${-(45 * d2r)}" />
+
+    <xacro:property name="brm_mass" value="1" />
+
+    <joint name="back_right_motor_joint" type="fixed">
+        <origin xyz="${sub_xorg} ${sub_yorg} ${sub_zorg}" rpy="${sub_rorg} ${sub_porg} ${sub_yaworg}"/>
+        <parent link="${sub_base}"/>
+        <child link="back_right_motor_link"/>        
+    </joint>
+
+    <link name="back_right_motor_link">
+        <visual>
+            <origin xyz="${brm_xorg} ${brm_yorg} ${brm_zorg}" rpy="${brm_rorg} ${brm_porg} ${brm_yaworg}"/>
+            <geometry>
+                <box size="${brm_xsize} ${brm_ysize} ${brm_zsize}" />
+            </geometry>
+            <material name="green" />
+        </visual>
+        <visual>
+            <origin xyz="${brm_xorg} ${brm_yorg} ${brm_zorg}" rpy="${brm_rorg} ${brm_porg} ${brm_yaworg}"/>
+            <geometry>
+                <box size="0.3 0.1 0.1" />
+            </geometry>
+            <material name="green" />
+        </visual>
+        <collision>
+            <origin xyz="${brm_xorg} ${brm_yorg} ${brm_zorg}" rpy="${brm_rorg} ${brm_porg} ${brm_yaworg}"/>
+            <geometry>
+                <box size="${brm_xsize} ${brm_ysize} ${brm_zsize}" />
+            </geometry>
+        </collision>
+         <xacro:inertial_box mass="${brm_mass}" x="${brm_xsize}" y="${brm_ysize}" z="${brm_zsize}">
+            <origin xyz="${brm_xorg} ${brm_yorg} ${brm_zorg}" rpy="${brm_rorg} ${brm_porg} ${brm_yaworg}"/>
+        </xacro:inertial_box>
+    </link>
+
+    <!-- back left motor -->
+    <xacro:property name="blm_xsize" value="0.2" />
+    <xacro:property name="blm_ysize" value="0.2" />
+    <xacro:property name="blm_zsize" value="0.2" />
+
+    <xacro:property name="blm_xorg" value="${-(subx / 2)}" />
+    <xacro:property name="blm_yorg" value="${(suby / 2 + 0.14)}" />
+    <xacro:property name="blm_zorg" value="0" />
+
+    <xacro:property name="blm_rorg" value="0" />
+    <xacro:property name="blm_porg" value="0" />
+    <xacro:property name="blm_yaworg" value="${(45 * d2r)}" />
+
+    <xacro:property name="blm_mass" value="1" />
+
+    <joint name="back_left_motor_joint" type="fixed">
+        <origin xyz="${sub_xorg} ${sub_yorg} ${sub_zorg}" rpy="${sub_rorg} ${sub_porg} ${sub_yaworg}"/>
+        <parent link="${sub_base}"/>
+        <child link="back_left_motor_link"/>        
+    </joint>
+
+
+
+    <link name="back_left_motor_link">
+        <visual>
+            <origin xyz="${blm_xorg} ${blm_yorg} ${blm_zorg}" rpy="${blm_rorg} ${blm_porg} ${blm_yaworg}"/>
+            <geometry>
+                <box size="${blm_xsize} ${blm_ysize} ${blm_zsize}" />
+            </geometry>
+            <material name="green" />
+        </visual>
+        <visual>
+            <origin xyz="${blm_xorg} ${blm_yorg} ${blm_zorg}" rpy="${blm_rorg} ${blm_porg} ${blm_yaworg}"/>
+            <geometry>
+                <box size="0.3 0.1 0.1" />
+            </geometry>
+            <material name="green" />
+        </visual>
+        <collision>
+            <origin xyz="${blm_xorg} ${blm_yorg} ${blm_zorg}" rpy="${blm_rorg} ${blm_porg} ${blm_yaworg}"/>
+            <geometry>
+                <box size="${blm_xsize} ${blm_ysize} ${blm_zsize}" />
+            </geometry>
+        </collision>
+         <xacro:inertial_box mass="${blm_mass}" x="${blm_xsize}" y="${blm_ysize}" z="${blm_zsize}">
+            <origin xyz="${blm_xorg} ${blm_yorg} ${blm_zorg}" rpy="${blm_rorg} ${blm_porg} ${blm_yaworg}"/>
+        </xacro:inertial_box>
+    </link>
+
+    <!-- ....................................................................................................................................... -->
+
+    <!-- top front left motor -->
+    <xacro:property name="tflm_xsize" value="0.2" />
+    <xacro:property name="tflm_ysize" value="0.2" />
+    <xacro:property name="tflm_zsize" value="0.2" />
+
+    <xacro:property name="tflm_xorg" value="${subx / 4}" />
+    <xacro:property name="tflm_yorg" value="${(suby / 2 + 0.1)}" />
+    <xacro:property name="tflm_zorg" value="0" />
+
+    <xacro:property name="tflm_rorg" value="0" />
+    <xacro:property name="tflm_porg" value="${-90 * d2r}" />
+    <xacro:property name="tflm_yaworg" value="0" />
+
+    <xacro:property name="tflm_mass" value="1" />
+
+    <joint name="top_front_left_motor_joint" type="fixed">
+        <origin xyz="${sub_xorg} ${sub_yorg} ${sub_zorg}" rpy="${sub_rorg} ${sub_porg} ${sub_yaworg}"/>
+        <parent link="${sub_base}"/>
+        <child link="top_front_left_motor_link"/>        
+    </joint>
+
+
+
+    <link name="top_front_left_motor_link">
+        <visual>
+            <origin xyz="${tflm_xorg} ${tflm_yorg} ${tflm_zorg}" rpy="${tflm_rorg} ${tflm_porg} ${tflm_yaworg}"/>
+            <geometry>
+                <box size="${tflm_xsize} ${tflm_ysize} ${tflm_zsize}" />
+            </geometry>
+            <material name="green" />
+        </visual>
+        <visual>
+            <origin xyz="${tflm_xorg} ${tflm_yorg} ${tflm_zorg}" rpy="${tflm_rorg} ${tflm_porg} ${tflm_yaworg}"/>            <geometry>
+                <box size="0.3 0.1 0.1" />
+            </geometry>
+            <material name="green" />
+        </visual>
+        <collision>
+            <origin xyz="${tflm_xorg} ${tflm_yorg} ${tflm_zorg}" rpy="${tflm_rorg} ${tflm_porg} ${tflm_yaworg}"/>
+            <geometry>
+                <box size="${tflm_xsize} ${tflm_ysize} ${tflm_zsize}" />
+            </geometry>
+        </collision>
+         <xacro:inertial_box mass="${tflm_mass}" x="${tflm_xsize}" y="${tflm_ysize}" z="${tflm_zsize}">
+            <origin xyz="${tflm_xorg} ${tflm_yorg} ${tflm_zorg}" rpy="${tflm_rorg} ${tflm_porg} ${tflm_yaworg}"/>
+        </xacro:inertial_box>
+    </link>
+
+    <!-- top front right motor -->
+    <xacro:property name="tfrm_xsize" value="0.2" />
+    <xacro:property name="tfrm_ysize" value="0.2" />
+    <xacro:property name="tfrm_zsize" value="0.2" />
+
+    <xacro:property name="tfrm_xorg" value="${subx / 4}" />
+    <xacro:property name="tfrm_yorg" value="${-(suby / 2 + 0.1)}" />
+    <xacro:property name="tfrm_zorg" value="0" />
+
+    <xacro:property name="tfrm_rorg" value="0" />
+    <xacro:property name="tfrm_porg" value="${(-90* d2r)}" />
+    <xacro:property name="tfrm_yaworg" value="0" />
+
+    <xacro:property name="tfrm_mass" value="1" />
+
+    <joint name="top_front_right_motor_joint" type="fixed">
+        <origin xyz="${sub_xorg} ${sub_yorg} ${sub_zorg}" rpy="${sub_rorg} ${sub_porg} ${sub_yaworg}"/>
+        <parent link="${sub_base}"/>
+        <child link="top_front_right_motor_link"/>        
+    </joint>
+
+
+
+    <link name="top_front_right_motor_link">
+        <visual>
+            <origin xyz="${tfrm_xorg} ${tfrm_yorg} ${tfrm_zorg}" rpy="${tfrm_rorg} ${tfrm_porg} ${tfrm_yaworg}"/>
+            <geometry>
+                <box size="${tfrm_xsize} ${tfrm_ysize} ${tfrm_zsize}" />
+            </geometry>
+            <material name="green" />
+        </visual>
+        <visual>
+            <origin xyz="${tfrm_xorg} ${tfrm_yorg} ${tfrm_zorg}" rpy="${tfrm_rorg} ${tfrm_porg} ${tfrm_yaworg}"/>
+            <geometry>
+                <box size="0.3 0.1 0.1" />
+            </geometry>
+            <material name="green" />
+        </visual>
+        <collision>
+            <origin xyz="${tfrm_xorg} ${tfrm_yorg} ${tfrm_zorg}" rpy="${tfrm_rorg} ${tfrm_porg} ${tfrm_yaworg}"/>
+            <geometry>
+                <box size="${tfrm_xsize} ${tfrm_ysize} ${tfrm_zsize}" />
+            </geometry>
+        </collision>
+         <xacro:inertial_box mass="${tfrm_mass}" x="${tfrm_xsize}" y="${tfrm_ysize}" z="${tfrm_zsize}">
+            <origin xyz="${tfrm_xorg} ${tfrm_yorg} ${tfrm_zorg}" rpy="${tfrm_rorg} ${tfrm_porg} ${tfrm_yaworg}"/>
+        </xacro:inertial_box>
+    </link>
+
+    <!-- top back right motor -->
+    <xacro:property name="tbrm_xsize" value="0.2" />
+    <xacro:property name="tbrm_ysize" value="0.2" />
+    <xacro:property name="tbrm_zsize" value="0.2" />
+
+    <xacro:property name="tbrm_xorg" value="${-(subx / 4)}" />
+    <xacro:property name="tbrm_yorg" value="${-(suby / 2 + 0.1)}" />
+    <xacro:property name="tbrm_zorg" value="0" />
+
+    <xacro:property name="tbrm_rorg" value="0" />
+    <xacro:property name="tbrm_porg" value="${(-90 * d2r)}" />
+    <xacro:property name="tbrm_yaworg" value="0" />
+
+    <xacro:property name="tbrm_mass" value="1" />
+
+    <joint name="top_back_right_motor_joint" type="fixed">
+        <origin xyz="${sub_xorg} ${sub_yorg} ${sub_zorg}" rpy="${sub_rorg} ${sub_porg} ${sub_yaworg}"/>
+        <parent link="${sub_base}"/>
+        <child link="top_back_right_motor_link"/>        
+    </joint>
+
+    <link name="top_back_right_motor_link">
+        <visual>
+            <origin xyz="${tbrm_xorg} ${tbrm_yorg} ${tbrm_zorg}" rpy="${tbrm_rorg} ${tbrm_porg} ${tbrm_yaworg}"/>
+            <geometry>
+                <box size="${tbrm_xsize} ${tbrm_ysize} ${tbrm_zsize}" />
+            </geometry>
+            <material name="green" />
+        </visual>
+        <visual>
+            <origin xyz="${tbrm_xorg} ${tbrm_yorg} ${tbrm_zorg}" rpy="${tbrm_rorg} ${tbrm_porg} ${tbrm_yaworg}"/>
+            <geometry>
+                <box size="0.3 0.1 0.1" />
+            </geometry>
+            <material name="green" />
+        </visual>
+        <collision>
+            <origin xyz="${tbrm_xorg} ${tbrm_yorg} ${tbrm_zorg}" rpy="${tbrm_rorg} ${tbrm_porg} ${tbrm_yaworg}"/>
+            <geometry>
+                <box size="${tbrm_xsize} ${tbrm_ysize} ${tbrm_zsize}" />
+            </geometry>
+        </collision>
+         <xacro:inertial_box mass="${tbrm_mass}" x="${tbrm_xsize}" y="${tbrm_ysize}" z="${tbrm_zsize}">
+            <origin xyz="${tbrm_xorg} ${tbrm_yorg} ${tbrm_zorg}" rpy="${tbrm_rorg} ${tbrm_porg} ${tbrm_yaworg}"/>
+        </xacro:inertial_box>
+    </link>
+
+    <!-- top back left motor -->
+    <xacro:property name="tblm_xsize" value="0.2" />
+    <xacro:property name="tblm_ysize" value="0.2" />
+    <xacro:property name="tblm_zsize" value="0.2" />
+
+    <xacro:property name="tblm_xorg" value="${-(subx / 4)}" />
+    <xacro:property name="tblm_yorg" value="${(suby / 2 + 0.1)}" />
+    <xacro:property name="tblm_zorg" value="0" />
+
+    <xacro:property name="tblm_rorg" value="0" />
+    <xacro:property name="tblm_porg" value="${(-90 * d2r)}" />
+    <xacro:property name="tblm_yaworg" value="0" />
+
+    <xacro:property name="tblm_mass" value="1" />
+
+    <joint name="top_back_left_motor_joint" type="fixed">
+        <origin xyz="${sub_xorg} ${sub_yorg} ${sub_zorg}" rpy="${sub_rorg} ${sub_porg} ${sub_yaworg}"/>
+        <parent link="${sub_base}"/>
+        <child link="top_back_left_motor_link"/>        
+    </joint>
+
+
+
+    <link name="top_back_left_motor_link">
+        <visual>
+            <origin xyz="${tblm_xorg} ${tblm_yorg} ${tblm_zorg}" rpy="${tblm_rorg} ${tblm_porg} ${tblm_yaworg}"/>
+            <geometry>
+                <box size="${tblm_xsize} ${tblm_ysize} ${tblm_zsize}" />
+            </geometry>
+            <material name="green" />
+        </visual>
+        <visual>
+            <origin xyz="${tblm_xorg} ${tblm_yorg} ${tblm_zorg}" rpy="${tblm_rorg} ${tblm_porg} ${tblm_yaworg}"/>
+            <geometry>
+                <box size="0.3 0.1 0.1" />
+            </geometry>
+            <material name="green" />
+        </visual>
+        <collision>
+            <origin xyz="${tblm_xorg} ${tblm_yorg} ${tblm_zorg}" rpy="${tblm_rorg} ${tblm_porg} ${tblm_yaworg}"/>
+            <geometry>
+                <box size="${tblm_xsize} ${tblm_ysize} ${tblm_zsize}" />
+            </geometry>
+        </collision>
+         <xacro:inertial_box mass="${tblm_mass}" x="${tblm_xsize}" y="${tblm_ysize}" z="${tblm_zsize}">
+            <origin xyz="${tblm_xorg} ${tblm_yorg} ${tblm_zorg}" rpy="${tblm_rorg} ${tblm_porg} ${tblm_yaworg}"/>
+        </xacro:inertial_box>
+    </link>
+
+    <!-- slider_joint lets slider_link move back and forth along the top of the base in one dimension.  -->
+    <!-- - Origin is set to one of the top edges of the base_link box, so that our link skims across the top  -->
+    <!-- - It moves along the X axis -->
+    <!-- - We need to specify limits for the motion -->
+    <joint name="slider_joint" type="prismatic">
+        <origin xyz="-1.25 0 0.1" rpy="0 0 0"/>
+        <parent link="${sub_base}"/>
+        <child link="slider_link"/>
+        <axis xyz="1 0 0"/>
+        <limit lower="0" upper="2" velocity="100" effort="100"/>
+        <dynamics damping="10.0" friction="10.0"/> 
+    </joint>
+
+
+    <!-- slider_link is the box skimming across the top of the base. Its parameters are similar to the base_link, however: -->
+    <!-- - Instead of explicitly describing a colour, it uses the named material "blue". It knows about "blue" that material was included in example_include.xacro. -->
+    <!-- - Instead of explicitly describing the inertia, we use a macro that was defined in the example_include.xacro -->
+
+    <link name="slider_link">
+        <visual>
+            <origin xyz="0 0 0.075" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.5 0.25 0.15" />
+            </geometry>
+            <material name="blue" />
+        </visual>
+        <collision>
+            <origin xyz="0 0 0.075" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.5 0.25 0.15" />
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="0.5" x="0.5" y="0.25" z="0.15">
+            <origin xyz="0 0 0.075" rpy="0 0 0"/>
+        </xacro:inertial_box>
+    </link>
+
+
+
+    <!-- arm_joint describes the rotation of the arm and is centred around the top corner of the slider box. -->
+    <!-- - The axis of rotation is -1 in Y, so that positive is "up" -->
+    <!-- - The upper limit uses xacro's mathematical features -->
+    <joint name="arm_joint" type="revolute">
+        <origin xyz="0.25 0 0.15" rpy="0 0 0"/>
+        <parent link="slider_link"/>
+        <child link="arm_link"/>
+        <axis xyz="0 -1 0"/>
+        <limit lower="0" upper="${pi/2}" velocity="100" effort="100"/>
+        <dynamics damping="10.0" friction="10.0"/> 
+    </joint>
+
+
+    <!-- arm_link describes the arm -->
+    <!-- - We use the "property" feature to define the arm length and radius and use them multiple times -->
+    <!-- - The visual/collision origin is set to halfway along the length (similar to the box), but also with a rotation (again using the mathematical features). -->
+    <!--   This is because the cylinder extends along the Z axis by default, but we want it to be along the X axis (when the joint is at 0) -->
+
+    <xacro:property name="arm_length" value="1" />
+    <xacro:property name="arm_radius" value="0.1" />
+    <link name="arm_link">
+        <visual>
+            <origin xyz="${arm_length/2} 0 0" rpy="0 ${pi/2} 0"/>
+            <geometry>                
+                <cylinder length="${arm_length}" radius="${arm_radius}" />
+            </geometry>
+            <material name="orange" />
+        </visual>
+        <collision>
+            <origin xyz="${arm_length/2} 0 0" rpy="0 ${pi/2} 0"/>
+            <geometry>
+                <cylinder length="${arm_length}" radius="${arm_radius}" />
+            </geometry>
+        </collision>
+        <xacro:inertial_cylinder mass="1.0" length="${arm_length}" radius="${arm_radius}">
+            <origin xyz="${arm_length/2} 0 0" rpy="0 ${pi/2} 0"/>
+        </xacro:inertial_cylinder>
+    </link>
+
+
+    <!-- camera_joint describes where the camera is relative to the arm -->
+    <!-- - Even though the camera isn't moving relative to the arm, it will probably be helpful to have its own link/frame rather than just adding more visuals to the arm -->
+    <!-- - For this example, the camera_link origin will be at the centre of the camera's "sensor" -->
+    <joint name="camera_joint" type="fixed">
+        <origin xyz="${arm_length} 0 ${arm_radius + 0.075}" rpy="0 0 0"/>
+        <parent link="arm_link"/>
+        <child link="camera_link"/>        
+    </joint>
+
+
+    <!-- camera_link describes the camera at the end of the arm -->
+    <!-- - It has multiple visual elements, which ultimately get combined together -->
+    <!-- - Even if we specify different materials, RViz will just colour them all the same as the first -->
+    <!-- - Although we could also specify multiple collision geometries, instead we just use a single box that encompasses the whole camera -->
+    <link name="camera_link">
+        <visual>
+            <origin xyz="-0.03 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.06 0.15 0.15" />
+            </geometry>
+            <material name="white" />
+        </visual>
+        <visual>
+            <origin xyz="0.03 0 0" rpy="0 ${pi/2} 0"/>
+            <geometry>
+                <cylinder length="0.06" radius="0.04" />
+            </geometry>
+            <material name="blue" />
+        </visual>
+        <collision>
+            <origin xyz="0.0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="0.12 0.15 0.15" />
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="0.1" x="0.12" y="0.15" z="0.15">
+            <origin xyz="0.0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_box>
+    </link>
+
+
+    <xacro:include filename="example_gazebo.xacro" />
+    <!-- not sure why this line is needed yet, it seems like it is not necessary for rviz, I imagine that it will be important for gazebo-->
+    <!-- it is important for gazebo-->
+
+
+</robot>

@@ -1,0 +1,4 @@
+Invoking command in '/root/dev_ws3/src/urdfsub/build/urdfsub': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/foxy /usr/bin/cmake --build /root/dev_ws3/src/urdfsub/build/urdfsub -- -j12 -l12
+Invoked command in '/root/dev_ws3/src/urdfsub/build/urdfsub' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/foxy /usr/bin/cmake --build /root/dev_ws3/src/urdfsub/build/urdfsub -- -j12 -l12
+Invoking command in '/root/dev_ws3/src/urdfsub/build/urdfsub': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/foxy /usr/bin/cmake --install /root/dev_ws3/src/urdfsub/build/urdfsub
+Invoked command in '/root/dev_ws3/src/urdfsub/build/urdfsub' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/foxy /usr/bin/cmake --install /root/dev_ws3/src/urdfsub/build/urdfsub

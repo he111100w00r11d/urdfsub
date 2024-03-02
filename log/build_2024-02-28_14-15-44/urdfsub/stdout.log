@@ -1,0 +1,24 @@
+-- Install configuration: ""
+-- Execute custom install script
+-- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/description/RoboSubInclude.xacro
+-- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/description/RoboSubURDF.urdf.xacro
+-- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/description/example_gazebo.xacro
+-- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/launch/__pycache__/rsp.launch.cpython-38.pyc
+-- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/launch/__pycache__/rsp_sim.launch.cpython-38.pyc
+-- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/launch/rsp.launch.py
+-- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/launch/rsp_sim.launch.py
+-- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/ament_index/resource_index/package_run_dependencies/urdfsub
+-- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/ament_index/resource_index/parent_prefix_path/urdfsub
+-- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/environment/ament_prefix_path.sh
+-- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/environment/ament_prefix_path.dsv
+-- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/environment/path.sh
+-- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/environment/path.dsv
+-- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/local_setup.bash
+-- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/local_setup.sh
+-- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/local_setup.zsh
+-- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/local_setup.dsv
+-- Symlinking: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/package.dsv
+-- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/ament_index/resource_index/packages/urdfsub
+-- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/cmake/urdfsubConfig.cmake
+-- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/cmake/urdfsubConfig-version.cmake
+-- Up-to-date symlink: /root/dev_ws3/src/urdfsub/install/urdfsub/share/urdfsub/package.xml

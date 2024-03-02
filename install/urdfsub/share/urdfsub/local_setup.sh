@@ -1,0 +1,1 @@
+/root/dev_ws3/src/urdfsub/build/urdfsub/ament_cmake_environment_hooks/local_setup.sh
